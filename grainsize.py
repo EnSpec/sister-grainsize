@@ -120,7 +120,18 @@ def main():
     grain_header['wavelength']= []
     grain_header['fwhm']= []
 
-    out_file = args.out_dir + reflectance.base_name + '_grainsize'
+    file_base=reflectance.base_name
+
+    if file_base.startswith( 'f' ):
+        output_prefix = file_bass[0, 17]
+    elif file_base.startswith( 'ang*' ):
+        output_prefix = file_bass[0, 19]
+    elif file_base.startswith( 'PRS*' ):
+        output_prefix = file_bass[0, 39]
+    elif file_base.startswith( 'DESIS' ):
+        output_prefix = file_bass[0, 45]
+
+    out_file = args.out_dir + output_prefix + '_grainsize'
     writer = WriteENVI(out_file,grain_header)
     writer.write_band(grain_size,0)
 
